@@ -15,6 +15,7 @@
 package com.sigmay.quizviewer.common
 
 import java.awt.Dimension
+import java.awt.Insets
 
 /**
  * 空文字列
@@ -25,6 +26,16 @@ const val EMPTY_STRING = ""
  * イメージフレームのデフォルトサイズ
  */
 val DEFAULT_IMG_FRAME_SIZE = Dimension(640, 640)
+
+/**
+ * デフォルトフォントサイズ
+ */
+const val DEFAULT_FONT_SIZE = 16
+
+/**
+ * クイズフレームのデフォルトマージン
+ */
+val DEFAULT_MARGIN = Insets(DEFAULT_FONT_SIZE / 4, DEFAULT_FONT_SIZE / 2, DEFAULT_FONT_SIZE / 4, DEFAULT_FONT_SIZE / 4)
 
 /**
  * クイズをスキップするしきい値（この値以上なら表示しない）

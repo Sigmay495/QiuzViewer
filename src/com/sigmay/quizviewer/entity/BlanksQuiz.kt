@@ -14,6 +14,7 @@
 
 package com.sigmay.quizviewer.entity
 
+import com.sigmay.quizviewer.common.DEFAULT_THRESHOLD
 import com.sigmay.quizviewer.common.EMPTY_STRING
 import com.sigmay.quizviewer.common.QuizEditingFailureException
 import com.sigmay.quizviewer.common.QuizMarkingFailureException
@@ -51,8 +52,11 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
      */
     var sentence = EMPTY_STRING
         set(value) {
-            if (isEditable)
-                field = value.replace(Regex("＃")) { "（$it）" }
+            if (isEditable) {
+                var count = 1
+                field = value.replace(Regex("＃")) { " (${count++}) " }
+            } else
+                throw QuizEditingFailureException("編集不可となっています。")
         }
 
     /**
@@ -108,6 +112,8 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
         set(value) {
             if (isEditable)
                 field = value
+            else
+                throw QuizEditingFailureException("編集不可となっています。")
         }
 
     /**
@@ -122,6 +128,8 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
         set(value) {
             if (isEditable)
                 field = value
+            else
+                throw QuizEditingFailureException("編集不可となっています。")
         }
 
     /**
@@ -131,6 +139,8 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
         set(value) {
             if (isEditable)
                 field = value
+            else
+                throw QuizEditingFailureException("編集不可となっています。")
         }
 
     /**
@@ -146,18 +156,20 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
         }
 
     /**
-     * 編集が終了しているかチェックします。
+     * 編集が終了しているかチェックする。
      *
      * @return 解答が一つでも空なら [false] 、問題文と画像の両方がない場合も [false]
      */
     fun isComplete(): Boolean {
+        if (isEditable)
+            return false
         if (answers.any { it == EMPTY_STRING })
             return false
         return sentence != EMPTY_STRING || imgFilePath != EMPTY_STRING
     }
 
     /**
-     * クイズの解答を採点し、正解数を更新します
+     * クイズの解答を採点し、正解数を更新する。
      *
      * @param response クイズの解答
      * @return 採点結果を格納した配列
@@ -165,10 +177,12 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
     fun markAnswers(response: Array<String>): BooleanArray {
         if (answers.size != response.size)
             throw QuizMarkingFailureException("クイズの回答数が一致しません。")
-        return BooleanArray(answers.size) {
-            if (answers[it] == response[it])
-                correctCount[it]++
-            answers[it] == response[it]
-        }
+        val result = BooleanArray(response.size) { false }
+        for (i in result.indices)
+            if (correctCount[i] < DEFAULT_THRESHOLD && answers[i] == response[i]) {
+                result[i] = true
+                correctCount[i]++
+            }
+        return result
     }
 }

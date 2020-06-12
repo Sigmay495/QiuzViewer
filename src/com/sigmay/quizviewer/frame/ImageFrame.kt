@@ -43,7 +43,7 @@ class ImageFrame(title: String, img: Image = BufferedImage(1, 1, BufferedImage.T
 
         add(imgCanvas)
 
-        setLocationRelativeTo(null)
+        //setLocationRelativeTo(null)
         defaultCloseOperation = WindowConstants.DO_NOTHING_ON_CLOSE
         isVisible = true
     }
