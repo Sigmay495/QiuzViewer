@@ -51,7 +51,7 @@ class ComboBoxPanel(quiz: BlanksQuiz) : InputPanel() {
             val rowPanel = JPanel()
 
             // 問題番号を表示
-            val numberLabel = JLabel("(${quiz.numberString[i]})")
+            val numberLabel = JLabel("(${quiz.numberIndex[i]})")
             numberLabel.font = Font(numberLabel.font.name, numberLabel.font.style, DEFAULT_FONT_SIZE)
             numberLabel.preferredSize = Dimension(DEFAULT_FONT_SIZE * 3, (DEFAULT_FONT_SIZE * 1.5).toInt())
             numberLabel.horizontalAlignment = JLabel.CENTER
@@ -62,7 +62,7 @@ class ComboBoxPanel(quiz: BlanksQuiz) : InputPanel() {
             comboBox[i]
             comboBox[i].font = Font(comboBox[i].font.name, comboBox[i].font.style, DEFAULT_FONT_SIZE)
             comboBox[i].preferredSize = Dimension(DEFAULT_FONT_SIZE * 10, (DEFAULT_FONT_SIZE * 1.5).toInt())
-            if (quiz.correctCount[i] >= DEFAULT_THRESHOLD) {
+            if (quiz.record[i] >= DEFAULT_THRESHOLD) {
                 comboBox[i].selectedIndex = comboData.indexOfFirst { it == quiz.answers[i] }
                 comboBox[i].isEnabled = false
             }

@@ -46,7 +46,7 @@ class TextFieldsPanel(quiz: BlanksQuiz) : InputPanel() {
             val rowPanel = JPanel()
 
             // 問題番号を表示
-            val numberLabel = JLabel("(${quiz.numberString[i]})")
+            val numberLabel = JLabel("(${quiz.numberIndex[i]})")
             numberLabel.font = Font(numberLabel.font.name, numberLabel.font.style, DEFAULT_FONT_SIZE)
             numberLabel.preferredSize = Dimension(DEFAULT_FONT_SIZE * 3, (DEFAULT_FONT_SIZE * 1.5).toInt())
             numberLabel.horizontalAlignment = JLabel.CENTER
@@ -55,7 +55,7 @@ class TextFieldsPanel(quiz: BlanksQuiz) : InputPanel() {
 
             // テキストフィールドを表示
             textFields[i].font = Font(textFields[i].font.name, textFields[i].font.style, DEFAULT_FONT_SIZE)
-            if (quiz.correctCount[i] >= DEFAULT_THRESHOLD) {
+            if (quiz.record[i] >= DEFAULT_THRESHOLD) {
                 textFields[i].text = quiz.answers[i]
                 textFields[i].isEditable = false
             }

@@ -14,26 +14,24 @@
 
 package com.sigmay.quizviewer.app
 
-import com.sigmay.quizviewer.common.ApplicationException
 import com.sigmay.quizviewer.common.EMPTY_STRING
 import com.sigmay.quizviewer.common.FinishFlagHandler
 import com.sigmay.quizviewer.entity.BlanksQuiz
 import com.sigmay.quizviewer.frame.BlanksQuizFrame
 import com.sigmay.quizviewer.frame.BlanksQuizResultFrame
 import com.sigmay.quizviewer.frame.ImageFrame
-import java.io.File
 
 class BlanksQuizApp {
     companion object {
         /**
          * フレームのタイトル
          */
-        private var title: String = EMPTY_STRING
+        private lateinit var title: String
 
         /**
          * クイズ
          */
-        private var quiz: BlanksQuiz = BlanksQuiz(Array(1) { EMPTY_STRING })
+        private lateinit var quiz: BlanksQuiz
 
         /**
          * 画像を表示する。
@@ -41,7 +39,9 @@ class BlanksQuizApp {
          * @return 表示する画像のフレーム
          */
         private fun showImage(): ImageFrame? {
-            return ImageFrame("$title（図）", quiz.imgFilePath)
+            if (quiz.imgFilePath == EMPTY_STRING)
+                return null
+            return ImageFrame("$title - 図", quiz.imgFilePath)
         }
 
         /**
@@ -54,7 +54,7 @@ class BlanksQuizApp {
          *
          * @param response クイズの回答。
          */
-        private fun showResult(response: Array<String>) = BlanksQuizResultFrame("$title（解説）", quiz, response)
+        private fun showResult(response: Array<String>) = BlanksQuizResultFrame("$title - 解説", quiz, response)
 
         /**
          * クイズの入力から回答までを図付きで表示する。

@@ -26,7 +26,7 @@ import java.io.Serializable
  * @constructor
  * 解答の配列 [answers] を入れてオブジェクトを生成する。
  */
-class BlanksQuiz(val answers: Array<String>) : Serializable {
+class BlanksQuiz(val answers: List<String>) : Serializable {
 
     companion object {
         /**
@@ -53,21 +53,29 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
     var sentence = EMPTY_STRING
         set(value) {
             if (isEditable) {
-                var count = 1
-                field = value.replace(Regex("＃")) { " (${count++}) " }
+                field = value
             } else
                 throw QuizEditingFailureException("編集不可となっています。")
         }
+        get() {
+            var count = 0
+            return field.replace(Regex("＃")) { " (${numberIndex[count++]}) " }
+        }
+
+    /**
+     * 各問の接尾語（初期値は空文字列）
+     */
+    val suffix = Array(answers.size) { EMPTY_STRING }
 
     /**
      * 各問の正解数カウンタ（初期値はすべて0）
      */
-    val correctCount = IntArray(answers.size) { 0 }
+    val record = IntArray(answers.size) { 0 }
 
     /**
      * 各問の問番号（初期値は1からスタート）
      */
-    val numberString: Array<String> by lazy {
+    val numberIndex: Array<String> by lazy {
         if (numberFirstIndex == EMPTY_STRING)
             numberFirstIndex = "1"
         when (numberFirstIndex.length) {
@@ -117,11 +125,6 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
         }
 
     /**
-     * 各問の接尾語（初期値は空文字列）
-     */
-    val suffix = Array(answers.size) { EMPTY_STRING }
-
-    /**
      * 表示する画像のファイルパス（空の場合、画像は表示されない）
      */
     var imgFilePath = EMPTY_STRING
@@ -149,7 +152,7 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
     var isEditable = true
         set(value) {
             if (isEditable && !value) {
-                numberString
+                numberIndex
                 field = value
             } else
                 throw QuizEditingFailureException("編集不可となっています。")
@@ -165,7 +168,7 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
             return false
         if (answers.any { it == EMPTY_STRING })
             return false
-        return sentence != EMPTY_STRING || imgFilePath != EMPTY_STRING
+        return true
     }
 
     /**
@@ -179,10 +182,20 @@ class BlanksQuiz(val answers: Array<String>) : Serializable {
             throw QuizMarkingFailureException("クイズの回答数が一致しません。")
         val result = BooleanArray(response.size) { false }
         for (i in result.indices)
-            if (correctCount[i] < DEFAULT_THRESHOLD && answers[i] == response[i]) {
+            if (record[i] < DEFAULT_THRESHOLD && answers[i] == response[i]) {
                 result[i] = true
-                correctCount[i]++
+                record[i]++
             }
         return result
     }
+
+    /**
+     * クイズ情報を文字列化する。
+     *
+     * @return クイズ情報の文字列
+     */
+    override fun toString(): String {
+        return "BlanksQuiz(answers=$answers, sentence='$sentence', suffix=${suffix.contentToString()}, record=${record.contentToString()}, numberFirstIndex='$numberFirstIndex', imgFilePath='$imgFilePath', hasCandidate=$hasCandidate, isEditable=$isEditable)"
+    }
+
 }

@@ -3,7 +3,7 @@
  *
  *  ==============================
  *  Project Name: SlideShow
- *  File Name: Config.kt
+ *  FILE Name: Config.kt
  *  Encoding: UTF-8
  *  Creation Date: 2020.6.4
  *
@@ -41,3 +41,23 @@ val DEFAULT_MARGIN = Insets(DEFAULT_FONT_SIZE / 4, DEFAULT_FONT_SIZE / 2, DEFAUL
  * クイズをスキップするしきい値（この値以上なら表示しない）
  */
 const val DEFAULT_THRESHOLD = 4
+
+/**
+ * デフォルトの回答データファイル。
+ */
+const val DEFAULT_ANSWER_FILE = "answer.csv"
+
+/**
+ * デフォルトの問題文データファイル。
+ */
+const val DEFAULT_SENTENCE_FILE = "sentence.csv"
+
+/**
+ * デフォルトの設定データファイル。
+ */
+const val DEFAULT_PROPERTY_FILE = "property.csv"
+
+/**
+ * デフォルトの正答率データファイル。
+ */
+const val DEFAULT_RECORD_FILE = "record.dat"
