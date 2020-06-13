@@ -23,6 +23,7 @@ import java.awt.Color
 import java.awt.Font
 import javax.swing.JButton
 import javax.swing.JLabel
+import javax.swing.JOptionPane
 import javax.swing.JPanel
 import javax.swing.border.EmptyBorder
 
@@ -51,8 +52,11 @@ class ButtonPanel(frame: QuizFrame, quiz: BlanksQuiz) : JPanel() {
 
         val finishButton = JButton("終了")
         finishButton.addActionListener {
-            frame.isWaiting = false
-            frame.isFinished = true
+            val option = JOptionPane.showConfirmDialog(this, "終了しますか？", "選択", JOptionPane.YES_NO_OPTION)
+            if (option == JOptionPane.YES_OPTION) {
+                frame.isWaiting = false
+                frame.isFinished = true
+            }
         }
         finishButton.font = Font(finishButton.font.name, finishButton.font.style, DEFAULT_FONT_SIZE)
         finishButton.foreground = Color.RED

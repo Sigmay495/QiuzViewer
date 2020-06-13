@@ -15,7 +15,7 @@
 package com.sigmay.quizviewer
 
 import com.sigmay.quizviewer.app.QuizViewerApp
-import com.sigmay.quizviewer.common.ApplicationException
+import javax.swing.JOptionPane
 
 fun main(args: Array<String>) {
     try {
@@ -23,7 +23,8 @@ fun main(args: Array<String>) {
             QuizViewerApp.execute()
         else
             QuizViewerApp.execute(args[0])
-    } catch (e: ApplicationException) {
+    } catch (e: Exception) {
+        JOptionPane.showMessageDialog(null, e.message, "エラー発生", JOptionPane.ERROR_MESSAGE)
         e.printStackTrace()
     }
 }

@@ -22,4 +22,4 @@ package com.sigmay.quizviewer.common
  *
  * @param msg 例外メッセージ
  */
-class FinishFlagHandler(msg: String): Exception(msg)
+class FinishFlagHandler(): Exception(EMPTY_STRING)

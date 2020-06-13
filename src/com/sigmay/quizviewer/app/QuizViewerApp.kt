@@ -22,6 +22,7 @@ import com.sigmay.quizviewer.dao.SentenceDao
 import com.sigmay.quizviewer.entity.BlanksQuiz
 import java.io.File
 import javax.swing.JFileChooser
+import javax.swing.JOptionPane
 import kotlin.system.exitProcess
 
 class QuizViewerApp {
@@ -117,9 +118,9 @@ class QuizViewerApp {
             try {
                 for (i in quizNoList.indices)
                     BlanksQuizApp.execute("$quizTitle（${i + 1}／${quizNoList.size}問目）", quizMap[quizNoList[i]]!!)
-                println("クイズが終了しました。")
+                JOptionPane.showMessageDialog(null, "クイズが終了しました。", "終了", JOptionPane.INFORMATION_MESSAGE)
             } catch (e: FinishFlagHandler) {
-                println("クイズを中断します。")
+                JOptionPane.showMessageDialog(null, "クイズが中断されました。", "中断", JOptionPane.INFORMATION_MESSAGE)
             } finally {
                 RecordDao.writeBlankQuiz(quizMap, rootDir + DEFAULT_RECORD_FILE)
             }

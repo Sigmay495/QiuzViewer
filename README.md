@@ -12,3 +12,7 @@
 
 ### 選択クイズ
 未実装。
+
+## サンプルの実行方法
+- QuizViewerExeを起動する。
+- GUIで .\test\sample\sample_quiz.qz を選択する。

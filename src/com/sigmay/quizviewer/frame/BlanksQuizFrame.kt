@@ -32,7 +32,7 @@ import javax.swing.WindowConstants
  * [title] をタイトルとして、[quiz] の値を表示するフレームを作る。
  */
 class BlanksQuizFrame(title: String, quiz: BlanksQuiz) : QuizFrame(title) {
-    lateinit var response: Array<String>
+    var response: Array<String>
     private set
 
     init {
@@ -73,6 +73,6 @@ class BlanksQuizFrame(title: String, quiz: BlanksQuiz) : QuizFrame(title) {
 
         // 終了する場合ハンドラを投げる
         if (isFinished)
-            throw FinishFlagHandler("終了")
+            throw FinishFlagHandler()
     }
 }

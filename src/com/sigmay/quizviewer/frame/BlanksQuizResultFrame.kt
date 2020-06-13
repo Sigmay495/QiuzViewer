@@ -66,6 +66,6 @@ class BlanksQuizResultFrame(title: String, quiz: BlanksQuiz, response: Array<Str
 
         // 終了する場合ハンドラを投げる
         if (isFinished)
-            throw FinishFlagHandler("終了")
+            throw FinishFlagHandler()
     }
 }
