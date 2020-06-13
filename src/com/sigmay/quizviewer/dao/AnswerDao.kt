@@ -89,18 +89,3 @@ class AnswerDao {
         }
     }
 }
-
-fun main() {
-    val map = HashMap<String, BlanksQuiz>()
-    AnswerDao.readBlankQuiz(map, "res/sample/answer.csv")
-    SentenceDao.readBlankQuiz(map, "res/sample/sentence.csv")
-    PropertyDao.readBlankQuiz(map, "res/sample/property.csv")
-    RecordDao.readBlankQuiz(map, "res/sample/record.dat")
-
-    for ((k, e) in map) {
-        println(k)
-        e.isEditable = false
-        println(e)
-        println()
-    }
-}

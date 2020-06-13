@@ -77,7 +77,7 @@ class ComboBoxPanel(quiz: BlanksQuiz) : InputPanel() {
 
             add(rowPanel)
         }
-        preferredSize = Dimension(this.width, (DEFAULT_FONT_SIZE * 1.25 * quiz.answers.size).toInt() + 10)
+        preferredSize = Dimension(this.width, (DEFAULT_FONT_SIZE * 1.25 * ((quiz.answers.size + 1) / 2) * 2.0).toInt() + 10)
         border = EmptyBorder(DEFAULT_MARGIN)
     }
 
