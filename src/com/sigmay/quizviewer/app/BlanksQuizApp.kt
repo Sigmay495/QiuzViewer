@@ -47,7 +47,7 @@ class BlanksQuizApp {
         /**
          * クイズを表示する。
          */
-        private fun showQuiz() = BlanksQuizFrame("test", quiz).response
+        private fun showQuiz() = BlanksQuizFrame(title, quiz).response
 
         /**
          * クイズの答えを表示する。
