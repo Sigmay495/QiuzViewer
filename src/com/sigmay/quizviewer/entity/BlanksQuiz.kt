@@ -19,6 +19,7 @@ import com.sigmay.quizviewer.common.EMPTY_STRING
 import com.sigmay.quizviewer.common.QuizEditingFailureException
 import com.sigmay.quizviewer.common.QuizMarkingFailureException
 import java.io.Serializable
+import java.lang.System.lineSeparator
 
 /**
  * 空白穴埋め形式のクイズ。
@@ -59,7 +60,7 @@ class BlanksQuiz(val answers: List<String>) : Serializable {
         }
         get() {
             var count = 0
-            return field.replace(Regex("＃")) { " (${numberIndex[count++]}) " }
+            return field.replace("\\\\", lineSeparator()).replace(Regex("＃")) { " (${numberIndex[count++]}) " }
         }
 
     /**
