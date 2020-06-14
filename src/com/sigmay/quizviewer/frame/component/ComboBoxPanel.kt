@@ -59,13 +59,14 @@ class ComboBoxPanel(quiz: BlanksQuiz) : InputPanel() {
             rowPanel.add(numberLabel)
 
             // テキストフィールドを表示
-            comboBox[i]
+            comboBox[i].insertItemAt("", 0)
             comboBox[i].font = Font(comboBox[i].font.name, comboBox[i].font.style, DEFAULT_FONT_SIZE)
             comboBox[i].preferredSize = Dimension(DEFAULT_FONT_SIZE * 10, (DEFAULT_FONT_SIZE * 1.5).toInt())
             if (quiz.record[i] >= DEFAULT_THRESHOLD) {
                 comboBox[i].selectedIndex = comboData.indexOfFirst { it == quiz.answers[i] }
                 comboBox[i].isEnabled = false
-            }
+            } else
+                comboBox[i].selectedIndex = 0
             rowPanel.add(comboBox[i])
 
             // 問題番号を表示
